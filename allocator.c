@@ -7,6 +7,7 @@
 char command[4];
 char processName[2];
 char amountMemory[100];
+int  memory;
 int maxMemory;
 char typeOfFit[1];
 void parseArgs(char userArgs[]);
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
         fgets(userArgs, sizeof userArgs, stdin);	
         parseArgs(userArgs);
 
-        printf("Command is %s, processName is %s, amount is %s, type is %s\n", command, processName, amountMemory, typeOfFit);
+        printf("Command is %s, processName is %s, amount is %d, type is %s\n", command, processName, memory, typeOfFit);
     }
 }
 
@@ -54,6 +55,7 @@ void parseArgs(char userArgs[]) {
                     break;
                 case 2:
                     amountMemory[charIndex] = '\0';
+                    memory = atoi(amountMemory);
                     break;
                 case 3:
                     typeOfFit[charIndex] = '\0';
