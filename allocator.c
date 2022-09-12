@@ -1,3 +1,16 @@
+/*
+    Author: Jeremiah Thompson & Reis Ciaramitaro
+    Assignment Number: 4
+    Date of Submission: 
+    Name of this file: allocator.c
+    Short description of contents:
+    This program is focus on performing some memory allocation in four different methods. 
+        1) Request for a contiguous block of membory
+        2) Release of a contiguous block of memory
+        3) Compact unused holes of memory into one single block
+        4) Report the regions of free and allocated memory
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
