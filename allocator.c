@@ -26,7 +26,12 @@ char typeOfFit[1];
 void parseArgs(char userArgs[]);
 void checkInitialArgs(int argc, char* argv[]);
 
-
+/*
+    Function Name: main
+    Input to the method: 
+    Output(Return value): Print 
+    Brief description of the task:
+*/
 int main(int argc, char* argv[]) {
 
     checkInitialArgs(argc, argv);
