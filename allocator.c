@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 
 char * command;
 char * processName;
 int amountMemory;
 char * typeOfFit;
+void checkArgs(int argc, char* argv[]);
 
 
 int main(int argc, char* argv[]) {
