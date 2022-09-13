@@ -112,8 +112,6 @@ void compactMemory(int mainMemory[]) {
     int beginningOfHole = -1, beginningOfNextProcess = -1; //-1 means no available hole
     int i = 0;
 
-    //while (again){
-    //for(int i=0;i<maxMemory;i++) {
     while (again) {
         if (beginningOfHole == -1) { //when first hole is not found
             if (i == maxMemory - 1) //if no holes were found
@@ -146,7 +144,6 @@ void compactMemory(int mainMemory[]) {
             }
         }
         i++;
-    //}
     }
 }
 
@@ -194,9 +191,7 @@ int main(int argc, char* argv[]) {
         
         printf("Allocator> ");
         fgets(userArgs, sizeof userArgs, stdin);	
-        parseArgs(userArgs);
-        //printf ("Command: %s\nProcess: %s %d\nProcess Size: %d\nFit: %s\n", command, processName, currProcessNumber, currProcessMemory, typeOfFit);
-        
+        parseArgs(userArgs);        
         
         if (strcmp(command, "RQ") == 0) {
             printf("Requesting Memory\n");
