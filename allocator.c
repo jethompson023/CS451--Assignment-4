@@ -23,6 +23,12 @@ char amountMemory[100];
 int currProcessMemory;
 int maxMemory;
 char typeOfFit[1];
+int firstAvailableHoleSize;
+int firstAvailableIndex;
+int largestAvailableHoleSize;
+int largestAvailableIndex;
+int smallestAvailableHoleSize;
+int smallestAvailableIndex;
 
 void parseArgs(char userArgs[]);
 int checkInitialArgs(int argc, char* argv[]);
@@ -43,36 +49,84 @@ void setInitialValues(int mainMemory[]) {
     for(int i=0;i<=maxMemory;i++) {
         mainMemory[i] = -1;
     }
-    mainMemory[0] = -1;
-    mainMemory[1] = 2;
-    mainMemory[2] = 2;
-    mainMemory[3] = 2;
-    mainMemory[4] = 2;
-    mainMemory[5] = 2;
-    mainMemory[6] = -1;
-    mainMemory[7] = 3;
-    mainMemory[8] = 3;
-    mainMemory[9] = 3;
 }
 
 
 bool determineFit(int mainMemory[], int currProcessMemory) {
-    return true;
+    int beginning = 0, prev = mainMemory[0];
+    int firstAvailableHoleSize = 0;
+    int largestAvailableHoleSize = 0;
+    int smallestAvailableHoleSize = 0;
+
+    for(int i=1;i<maxMemory;i++) { //loop through memory
+        prev = mainMemory[i-1];
+        if (prev != mainMemory[i]) {
+            if (mainMemory[beginning] == -1) {
+                if ( i - beginning >= currProcessMemory ) {//hole is adequate size 
+                    if (firstAvailableHoleSize == 0) {
+                        firstAvailableHoleSize = i-beginning;
+                        firstAvailableIndex = beginning;
+                        smallestAvailableHoleSize =  firstAvailableHoleSize;
+                        smallestAvailableIndex = beginning;
+                        largestAvailableHoleSize = firstAvailableHoleSize; 
+                        largestAvailableIndex = beginning;
+                    }
+
+                    if (largestAvailableHoleSize < i-beginning) {
+                        largestAvailableHoleSize = i-beginning;
+                        largestAvailableIndex = beginning;
+                    }
+
+                    if (smallestAvailableHoleSize > i-beginning) {
+                        smallestAvailableHoleSize = i-beginning;
+                        smallestAvailableIndex = beginning;
+                    }
+                }
+            }
+            beginning = i;
+        }
+    }
+    if (mainMemory[beginning] == -1) {
+        if ( maxMemory - beginning >= currProcessMemory ) {//hole is adequate size 
+            if (firstAvailableHoleSize == 0) {
+                firstAvailableHoleSize = maxMemory-beginning;
+                firstAvailableIndex = beginning;
+                smallestAvailableHoleSize =  firstAvailableHoleSize;
+                smallestAvailableIndex = beginning;
+                largestAvailableHoleSize = firstAvailableHoleSize; 
+                largestAvailableIndex = beginning;
+            }
+
+            if (largestAvailableHoleSize < maxMemory-beginning) {
+                largestAvailableHoleSize = maxMemory-beginning;
+                largestAvailableIndex = beginning;
+            }
+
+            if (smallestAvailableHoleSize > maxMemory-beginning) {
+                smallestAvailableHoleSize = maxMemory-beginning;
+                smallestAvailableIndex = beginning;
+            }
+        }
+    }
+    return firstAvailableHoleSize > 0;
 }
 
 
 void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
-
+    for (int i = 0; i < currProcessMemory; i++) 
+        mainMemory[smallestAvailableIndex++] = atoi(processName);
 }
 
 
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
-
+    for (int i = 0; i < currProcessMemory; i++) 
+        mainMemory[largestAvailableIndex++] = atoi(processName);
 }
 
 
 void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
-
+    for (int i = 0; i < currProcessMemory; i++) 
+        mainMemory[firstAvailableIndex++] = atoi(processName);
 }
 
 
@@ -151,19 +205,20 @@ void compactMemory(int mainMemory[]) {
 void printStats(int mainMemory[]) {
     int beginning = 0, prev = mainMemory[0];
 
-    for(int i=1;i<maxMemory;i++) {
+    for(int i=1;i<maxMemory;i++) { //loop through main memory
         prev = mainMemory[i-1];
-        if (prev != mainMemory[i]) {
-            if (mainMemory[beginning] == -1) {
+        if (prev != mainMemory[i]) { //when a border between processes has been passed in the memory
+            //end of region has been reached at index i-1
+            if (mainMemory[beginning] == -1) { 
                 printf("Addresses [%d:%d] Unused\n", beginning, i-1);
             }
             else {
                 printf("Addresses [%d:%d] Process P%d\n", beginning, i-1, mainMemory[beginning]);
-            }
-            
-            beginning = i;
+            } 
+            beginning = i; //beginning of new region starts at i
         }
     }
+    //end of region has been reached at index maxMemory-1
     if (mainMemory[beginning] == -1) {
         printf("Addresses [%d:%d] Unused\n", beginning, maxMemory-1);
     }
@@ -201,7 +256,7 @@ int main(int argc, char* argv[]) {
             printf("Releasing Memory\n");
             releaseMemory(mainMemory, processName);
         }
-        else if (strcmp(command, "C") == 0) {
+        else if (command[0] == 'C') {
             printf("Compacting Memory\n");
             compactMemory(mainMemory);
         }
@@ -209,12 +264,11 @@ int main(int argc, char* argv[]) {
             printf("Printing Stats\n");
             printStats(mainMemory);
         }
-        else if (strcmp(command, "X") == 0) {
+        else if (command[0] == 'X') {
             printf("Exiting...\n");
             run = false;
         } else {
             printf("Command Not Supported\n");
-            compactMemory(mainMemory);
         }
     }
 }
