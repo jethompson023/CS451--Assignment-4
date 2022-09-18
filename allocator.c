@@ -124,10 +124,11 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: bestFit
+    Input to the method: mainMemory, processName, & currProcessMemory
+    Output(Return value): void
+    Brief description of the task: This algorithm is being used to account for the memory requested along with the current memory &
+    the process selected to find the best fit or "hole" within the memory stack
 */
 void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -135,11 +136,12 @@ void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
+    Function Name: worstFit
+    Input to the method: mainMemory, processName, & currPro
     Output(Return value): 
     Brief description of the task:
 */
+
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[largestAvailableIndex++] = atoi(processName);
@@ -337,7 +339,6 @@ int checkInitialArgs(int argc, char* argv[]) {
         return maxMemory = atoi(argv[1]);
     }
 }
-
 
 /*
     Function Name:
