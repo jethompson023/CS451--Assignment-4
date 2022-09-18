@@ -282,7 +282,7 @@ void printStats(int mainMemory[]) {
     Function Name: main
     Input to the method: 
     Output(Return value): Print 
-    Brief description of the task: 
+    Brief description of the task: Output to the User
 */
 int main(int argc, char* argv[]) {
 
@@ -292,9 +292,7 @@ int main(int argc, char* argv[]) {
     setInitialValues(mainMemory);
 
     while(run) {
-        char userArgs[100];
-
-        
+        char userArgs[100];        
         printf("Allocator> ");
         fgets(userArgs, sizeof userArgs, stdin);	
         parseArgs(userArgs);        
@@ -342,10 +340,10 @@ int checkInitialArgs(int argc, char* argv[]) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: resetArgs()
+    Input to the method: none
+    Output(Return value): command, processName, amountMemory, & typeOfFit
+    Brief description of the task: USing a for loop to iterate thorugh each of the outputs of this method
 */
 void resetArgs() {
     for(int i=0;i<=(strlen(command));i++) {
