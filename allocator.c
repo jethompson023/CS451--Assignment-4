@@ -31,7 +31,7 @@ int smallestAvailableHoleSize;
 int smallestAvailableIndex;
 
 void parseArgs(char userArgs[]);
-int checkInitialArgs(int argc, char* argv[]);
+int checkInitialArgs(int argc, char * argv[]);
 void setInitialValues(int mainMemory[]);
 void requestMemory(int mainMemory[], char processName[], int currProcessMemory, char typeOfFit[]);
 void releaseMemory(int mainMemory[], char processName[]);
@@ -47,8 +47,7 @@ void resetArgs();
     Function Name: setInitialValues
     Input to the method: mainMemory
     Output(Return value): none
-    Brief description of the task: Using this method this allows
-    for the input from the user to enter the main for loop to interate through as the other algorithms.
+    Brief description of the task: Loops through the values provided from the user
 */
 void setInitialValues(int mainMemory[]) {
     for(int i=0;i<=maxMemory;i++) {
@@ -59,9 +58,17 @@ void setInitialValues(int mainMemory[]) {
 /*
     Function Name: determineFit
     Input to the method: mainMemory & currProcessMemory
-    Output(Return value): boolen value
-    Brief description of the task: Using the amount of both main memory & avaliable memory this alogrithms goal is to undersatnd &
-    determine the different holes to determine if they were an adequate size. 
+
+    Output(Return value): firstAvailableHoleSize, smallestAvailiableHoleSize, & largestAvaliableHoleSize
+    
+    Brief description of the task: After recieving the current memory & the request from 
+    the user they are sent throuhg these different variables to provide an output based on the method the 
+    user choose for this request and assigns it back to the variable beginning. 
+
+    First Fit / firstAvaliableHoleSize: Looks for the free blocks of memory then upon recieving a request
+    smallestAvaliableHoleSize / Best Fit: Looks for the smallest free partition that can meet the request
+    largestAvaliableHoleSize / Worst Fit: Looks for the largest sufficient among the free blocks of memory and fills them when a request is recieved.
+    
 */
 bool determineFit(int mainMemory[], int currProcessMemory) {
     int beginning = 0, prev = mainMemory[0];
@@ -75,7 +82,7 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
             if (mainMemory[beginning] == -1) {
                 if ( i - beginning >= currProcessMemory ) {//hole is adequate size 
                     if (firstAvailableHoleSize == 0) {
-                        firstAvailableHoleSize = i-beginning;
+                        firstAvailableHoleSize = i - beginning;
                         firstAvailableIndex = beginning;
                         smallestAvailableHoleSize =  firstAvailableHoleSize;
                         smallestAvailableIndex = beginning;
@@ -126,8 +133,7 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
     Function Name: bestFit
     Input to the method: mainMemory, processName, & currProcessMemory
     Output(Return value): void
-    Brief description of the task: This algorithm is being used to account for the memory requested along with the current memory &
-    the process selected to find the best fit or "hole" within the memory stack
+    Brief description of the task: Loops through the inputs provided and returs the value from smallestAvailableIndex
 */
 void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -137,23 +143,19 @@ void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
 /*
     Function Name: worstFit
     Input to the method: mainMemory, processName, & currProcessMemory
-    Output(Return value): void
-    Brief description of the task: Using the concenpt of the "worst fit" where the
-    largest avaliable space is where the memory is the most avaliable & allocates a
-    process to the partition which is largest sufficient among the freely available 
-    partitions available in the main memory 
+    Output(Return value): 
+    Brief description of the task:  
 */
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[largestAvailableIndex++] = atoi(processName);
 }
 
-
 /*
     Function Name: firstFit 
     Input to the method: mainMemory, processName, & currProcessMemory
-    Output(Return value): void 
-    Brief description of the task: The partition is allocated which is first sufficient from the top of Main Memory
+    Output(Return value): Index of values from firstAvailableIndex
+    Brief description of the task: A
 */
 void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -163,7 +165,7 @@ void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
 /*
     Function Name: requestMemory 
     Input to the method: mainMemory, processName, currProcessMemory, & typeOfFit
-    Output(Return value): void 
+    Output(Return value): 
     Brief description of the task:
 */
 void requestMemory(int mainMemory[], char processName[], int currProcessMemory, char typeOfFit[]) {
@@ -186,9 +188,8 @@ void requestMemory(int mainMemory[], char processName[], int currProcessMemory, 
     }
 }
 
-
 /*
-    Function Name:
+    Function Name: 
     Input to the method: 
     Output(Return value): 
     Brief description of the task:
@@ -202,8 +203,8 @@ void releaseMemory(int mainMemory[], char processName[]) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
+    Function Name: compactMemory
+    Input to the method: mainMemory
     Output(Return value): 
     Brief description of the task:
 */
@@ -251,7 +252,8 @@ void compactMemory(int mainMemory[]) {
     Function Name: printStats
     Input to the method: mainMemory
     Output(Return value): void
-    Brief description of the task: After computation has been completed this method assists with print responses back to the user in the terminial ./
+    Brief description of the task: 
+
 */
 void printStats(int mainMemory[]) {
     int beginning = 0, prev = mainMemory[0];
@@ -321,7 +323,6 @@ int main(int argc, char* argv[]) {
         }
     }
 }
-
 
 /*
     Function Name: checkInitialArgs
