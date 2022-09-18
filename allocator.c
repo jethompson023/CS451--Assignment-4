@@ -44,14 +44,26 @@ void firstFit(int mainMemory[], char processName[], int currProcessMemory);
 void resetArgs();
 
 
-
+/*
+    Function Name: setInitialValues
+    Input to the method: mainMemory
+    Output(Return value): none
+    Brief description of the task: Using this method this allows
+    for the input from the user to enter the main for loop to interate through as the other algorithms.
+*/
 void setInitialValues(int mainMemory[]) {
     for(int i=0;i<=maxMemory;i++) {
         mainMemory[i] = -1;
     }
 }
 
-
+/*
+    Function Name: determineFit
+    Input to the method: mainMemory & currProcessMemory
+    Output(Return value): boolen value
+    Brief description of the task: Using the amount of both main memory & avaliable memory this alogrithms goal is to undersatnd &
+    determine the different holes to determine if they were an adequate size. 
+*/
 bool determineFit(int mainMemory[], int currProcessMemory) {
     int beginning = 0, prev = mainMemory[0];
     int firstAvailableHoleSize = 0;
@@ -111,26 +123,46 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
     return firstAvailableHoleSize > 0;
 }
 
-
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[smallestAvailableIndex++] = atoi(processName);
 }
 
-
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[largestAvailableIndex++] = atoi(processName);
 }
 
 
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[firstAvailableIndex++] = atoi(processName);
 }
 
-
-
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void requestMemory(int mainMemory[], char processName[], int currProcessMemory, char typeOfFit[]) {
     if (determineFit(mainMemory, currProcessMemory)) {
         if (strcmp(typeOfFit, "B") == 0) {
@@ -152,6 +184,12 @@ void requestMemory(int mainMemory[], char processName[], int currProcessMemory, 
 }
 
 
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void releaseMemory(int mainMemory[], char processName[]) {
     int processNumber = atoi(processName);
     for(int i=0;i<maxMemory;i++) {
@@ -160,7 +198,12 @@ void releaseMemory(int mainMemory[], char processName[]) {
     }
 }
 
-
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void compactMemory(int mainMemory[]) {
     bool again = true;
     int beginningOfHole = -1, beginningOfNextProcess = -1; //-1 means no available hole
@@ -201,7 +244,12 @@ void compactMemory(int mainMemory[]) {
     }
 }
 
-
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void printStats(int mainMemory[]) {
     int beginning = 0, prev = mainMemory[0];
 
@@ -273,6 +321,13 @@ int main(int argc, char* argv[]) {
     }
 }
 
+
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 int checkInitialArgs(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Necessary arguments are missing, exiting...\n");
@@ -283,6 +338,13 @@ int checkInitialArgs(int argc, char* argv[]) {
     }
 }
 
+
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void resetArgs() {
     for(int i=0;i<=(strlen(command));i++) {
         command[i] = '\0';
@@ -298,6 +360,12 @@ void resetArgs() {
     }
 }
 
+/*
+    Function Name:
+    Input to the method: 
+    Output(Return value): 
+    Brief description of the task:
+*/
 void parseArgs(char userArgs[]) {
     int argCount = 0;
     int charIndex = 0;
