@@ -43,7 +43,6 @@ void worstFit(int mainMemory[], char processName[], int currProcessMemory);
 void firstFit(int mainMemory[], char processName[], int currProcessMemory);
 void resetArgs();
 
-
 /*
     Function Name: setInitialValues
     Input to the method: mainMemory
@@ -137,11 +136,13 @@ void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
 
 /*
     Function Name: worstFit
-    Input to the method: mainMemory, processName, & currPro
-    Output(Return value): 
-    Brief description of the task:
+    Input to the method: mainMemory, processName, & currProcessMemory
+    Output(Return value): void
+    Brief description of the task: Using the concenpt of the "worst fit" where the
+    largest avaliable space is where the memory is the most avaliable & allocates a
+    process to the partition which is largest sufficient among the freely available 
+    partitions available in the main memory 
 */
-
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
         mainMemory[largestAvailableIndex++] = atoi(processName);
@@ -149,10 +150,10 @@ void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
 
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: firstFit 
+    Input to the method: mainMemory, processName, & currProcessMemory
+    Output(Return value): void 
+    Brief description of the task: The partition is allocated which is first sufficient from the top of Main Memory
 */
 void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -160,9 +161,9 @@ void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
+    Function Name: requestMemory 
+    Input to the method: mainMemory, processName, currProcessMemory, & typeOfFit
+    Output(Return value): void 
     Brief description of the task:
 */
 void requestMemory(int mainMemory[], char processName[], int currProcessMemory, char typeOfFit[]) {
@@ -247,10 +248,10 @@ void compactMemory(int mainMemory[]) {
 }
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: printStats
+    Input to the method: mainMemory
+    Output(Return value): void
+    Brief description of the task: After computation has been completed this method assists with print responses back to the user in the terminial ./
 */
 void printStats(int mainMemory[]) {
     int beginning = 0, prev = mainMemory[0];
@@ -281,7 +282,7 @@ void printStats(int mainMemory[]) {
     Function Name: main
     Input to the method: 
     Output(Return value): Print 
-    Brief description of the task:
+    Brief description of the task: 
 */
 int main(int argc, char* argv[]) {
 
@@ -325,10 +326,10 @@ int main(int argc, char* argv[]) {
 
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: checkInitialArgs
+    Input to the method: argc, argv
+    Output(Return value): maxMemory
+    Brief description of the task: This method gives a response if arguments are missing it gives back a message to the user
 */
 int checkInitialArgs(int argc, char* argv[]) {
     if (argc < 2) {
@@ -362,10 +363,11 @@ void resetArgs() {
 }
 
 /*
-    Function Name:
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: pargeArgs 
+    Input to the method: userArgs
+    Output(Return value): void
+    Brief description of the task: If a space is blank/"NULL" found in a input
+    into the newString vairable it goes through the different cases to give back a null character 
 */
 void parseArgs(char userArgs[]) {
     int argCount = 0;
