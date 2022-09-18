@@ -1,17 +1,28 @@
 CS451--Assignment-4
+This program displays a user interface to let the user manipulate a static amount of memory with a first, best, and worst fit algorithm. It also allows the compaction and printing of memory.
 
-How to run this program:
+To Compile:
+gcc allocator.c -o allocator
 
-1st command: gcc allocator.c ./allocator 
+To Run:
+./allocator <amountOfTotalMemory>
 
-2nd command Example: ./allocator 108976 (This number represents the amount of memory being requested)
+To Request Memory
+Allocator > RQ <Process Name> <Memory Size> <Type of Fit>
+Types of Fit include 
+First Fit = F
+Worst Fit = W
+Best Fit = B
 
-3rd Command: RQ (request) -> RQ P0 40000 W
 
-4th Command: RL (release) 
+To Release Memory
+Allocator> RL <Process Name>
 
-5th Command: C (compact)
+To Compact Memory
+Allocator> C
 
-6th Command: STAT (status report)
+To Print Contents of Memory
+Allocator> STAT
 
-7TH Command: X (exit)
+To Exit
+Allocator> X
