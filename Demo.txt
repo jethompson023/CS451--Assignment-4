@@ -1,3 +1,5 @@
+Worst Fit
+
 Input: 
 ./allocator 100
 
@@ -56,8 +58,3 @@ Addresses [40:59] Process P2
 Addresses [60:59] Unused
 Allocator> X
 Exiting...
-
-
-
-
-

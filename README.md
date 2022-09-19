@@ -14,7 +14,6 @@ First Fit = F
 Worst Fit = W
 Best Fit = B
 
-
 To Release Memory
 Allocator> RL <Process Name>
 
