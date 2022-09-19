@@ -48,7 +48,7 @@ void resetArgs();
     Function Name: setInitialValues
     Input to the method: mainMemory
     Output(Return value): none
-    Brief description of the task: Loops through the values provided from the user
+    Brief description of the task: Sets all main memory too unused by using -1 in all of the locations
 */
 void setInitialValues(int mainMemory[]) {
     for(int i=0;i<=maxMemory;i++) {
@@ -60,15 +60,15 @@ void setInitialValues(int mainMemory[]) {
     Function Name: determineFit
     Input to the method: mainMemory & currProcessMemory
 
-    Output(Return value): firstAvailableHoleSize, smallestAvailiableHoleSize, & largestAvaliableHoleSize
+    Output(Return value): returns true or false if there is a hole avaliable
     
     Brief description of the task: After recieving the current memory & the request from 
-    the user they are sent throuhg these different variables to provide an output based on the method the 
+    the user they are sent through these different variables to provide an output based on the method the 
     user choose for this request and assigns it back to the variable beginning. 
 
-    First Fit / firstAvaliableHoleSize: Looks for the free blocks of memory then upon recieving a request
-    smallestAvaliableHoleSize / Best Fit: Looks for the smallest free partition that can meet the request
-    largestAvaliableHoleSize / Worst Fit: Looks for the largest sufficient among the free blocks of memory and fills them when a request is recieved.
+    First Fit / firstAvaliableHoleSize: Looks for the 
+    smallestAvaliableHoleSize / Best Fit: Looks for the Best Hole Size and Index
+    largestAvaliableHoleSize / Worst Fit: Looks for the Worst Hole Size and Index
     
 */
 bool determineFit(int mainMemory[], int currProcessMemory) {
@@ -77,7 +77,7 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
     int largestAvailableHoleSize = 0;
     int smallestAvailableHoleSize = 0;
 
-    for(int i=1;i<maxMemory;i++) { //loop through memory
+    for(int i=1; i<maxMemory;i++) { //loop through memory
         prev = mainMemory[i-1];
         if (prev != mainMemory[i]) {
             if (mainMemory[beginning] == -1) {
@@ -133,8 +133,8 @@ bool determineFit(int mainMemory[], int currProcessMemory) {
 /*
     Function Name: bestFit
     Input to the method: mainMemory, processName, & currProcessMemory
-    Output(Return value): smallestAvailableIndex
-    Brief description of the task: Loops through the inputs provided and returs the value from smallestAvailableIndex
+    Output(Return value): none
+    Brief description of the task: Places current process starting in appropriate index 
 */
 void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -144,8 +144,8 @@ void bestFit(int mainMemory[], char processName[], int currProcessMemory) {
 /*
     Function Name: worstFit
     Input to the method: mainMemory, processName, & currProcessMemory
-    Output(Return value): 
-    Brief description of the task: 
+    Output(Return value): none
+    Brief description of the task: Places current process starting in appropriate index 
 */
 void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -155,8 +155,8 @@ void worstFit(int mainMemory[], char processName[], int currProcessMemory) {
 /*
     Function Name: firstFit 
     Input to the method: mainMemory, processName, & currProcessMemory
-    Output(Return value): Index of values from firstAvailableIndex
-    Brief description of the task: A
+    Output(Return value): none
+    Brief description of the task: Places current process starting in appropriate index 
 */
 void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
     for (int i = 0; i < currProcessMemory; i++) 
@@ -166,8 +166,8 @@ void firstFit(int mainMemory[], char processName[], int currProcessMemory) {
 /*
     Function Name: requestMemory 
     Input to the method: mainMemory, processName, currProcessMemory, & typeOfFit
-    Output(Return value): 
-    Brief description of the task:
+    Output(Return value): none
+    Brief description of the task: Parse user input for the correct fit 
 */
 void requestMemory(int mainMemory[], char processName[], int currProcessMemory, char typeOfFit[]) {
     if (determineFit(mainMemory, currProcessMemory)) {
@@ -190,10 +190,10 @@ void requestMemory(int mainMemory[], char processName[], int currProcessMemory, 
 }
 
 /*
-    Function Name: 
-    Input to the method: 
-    Output(Return value): 
-    Brief description of the task:
+    Function Name: releaseMemory 
+    Input to the method: mainMemory & processName
+    Output(Return value): none
+    Brief description of the task: Iterates through the memory & sets anything with current process number equal to -1
 */
 void releaseMemory(int mainMemory[], char processName[]) {
     int processNumber = atoi(processName);
@@ -207,8 +207,7 @@ void releaseMemory(int mainMemory[], char processName[]) {
     Function Name: compactMemory
     Input to the method: mainMemory
     Output(Return value): void 
-    Brief description of the task: After recieving the values from user this method will 
-    free up memory objects and move a single memory object of the same size.
+    Brief description of the task: Processes toward the smallest index's to make large Hole at the bottom of the memory
 */
 void compactMemory(int mainMemory[]) {
     bool again = true;
@@ -254,9 +253,7 @@ void compactMemory(int mainMemory[]) {
     Function Name: printStats
     Input to the method: mainMemory
     Output(Return value): void
-    Brief description of the task: This method will loop through the main memory. Once it's determined
-    if the program has reacheda border between processes has been passed into the memory it will print one of two things. It will 
-    print "unused" if the beginning of mainMemory is equal to -1 or else print the processes addresses in use by the program
+    Brief description of the task: prints contents of the memory
 */
 void printStats(int mainMemory[]) {
     int beginning = 0, prev = mainMemory[0];
@@ -287,11 +284,7 @@ void printStats(int mainMemory[]) {
     Function Name: main
     Input to the method: 
     Output(Return value): Print 
-    Brief description of the task: In the main maodule of this program while it's
-    running it will take the user input to make an official memory request and print
-    back that message. After the user requests memory if the user prompts the program to
-    release the memory it will print out "Releasing Memory".Then ifrequest it will print
-    the compacting of the memory along with printing out the message back to the user.
+    Brief description of the task: parse through user input & executes commands upon request
     
 */
 int main(int argc, char* argv[]) {
@@ -351,8 +344,8 @@ int checkInitialArgs(int argc, char* argv[]) {
 /*
     Function Name: resetArgs()
     Input to the method: none
-    Output(Return value): command, processName, amountMemory, & typeOfFit
-    Brief description of the task: 
+    Output(Return value): void
+    Brief description of the task: Resets global input variables to NULL
 */
 void resetArgs() {
     for(int i=0;i<=(strlen(command));i++) {
@@ -373,7 +366,7 @@ void resetArgs() {
     Function Name: pargeArgs 
     Input to the method: userArgs
     Output(Return value): void
-    Brief description of the task: This method loop through 
+    Brief description of the task: Sets user arguments to appropriate variables
 */
 void parseArgs(char userArgs[]) {
     int argCount = 0;
