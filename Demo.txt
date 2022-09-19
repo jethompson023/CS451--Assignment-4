@@ -1,71 +1,60 @@
 Worst Fit
 
 Input: 
-    1) gcc allocator.c -o allocator
-    2) ./allocator 1048576
-    3) RQ P0 40000 W
-    4) RL P0 
- 
-Output:
-    Allocator> RQ P0 40000 W
-    Requesting Memory
-    Allocator> RL P0 
-    Releasing Memory
-    Allocator> C 
-    Compacting Memory
-    Allocator> STAT
-    Printing Stats
-    Addresses [0:1048575] Unused
-    Allocator> STAT
-    Printing Stats
-    Addresses [0:1048575] Unused
-    Allocator> X
-    Exiting...
+./allocator 100
 
-Best Fit
-
-Input: 
-    1) gcc allocator.c -o allocator
-    2) ./allocator 98576
-    3) RQ P6 4000 W
-    4) RL P6
-    5) c
-    6) STAT  
-
-Output: 
-    ./allocator 1048576
-    Allocator> RQ P6 4000 W
-    Requesting Memory
-    Allocator> RL P6
-    Releasing Memory
-    Allocator> C
-    Compacting Memory
-    Allocator> STAT
-    Printing Stats
-    Addresses [0:1048575] Unused
-    Allocator> X 
-    Exiting...
-
-First Fit
-
-Input: 
-    1) gcc allocator.c -o allocator
-    2) ./allocator 866984
-    3) RQ P8 150000 F
-    4) RL P8
-    5) c
-    6) STAT 
-
-Output: 
-        ./allocator 866984
-        Allocator> RQ P8 150000 F
-        Requesting Memory
-        Allocator> RL P8
-        Releasing Memory
-        Allocator> C
-        Compacting Memory
-        Allocator> STAT
-        Printing Stats
-        Addresses [0:866983] Unused
-        Allocator> X
-        Exiting...
+Allocator> RQ P0 20 F
+Requesting Memory
+Allocator> RQ P1 20 F
+Requesting Memory
+Allocator> RQ P2 20 F
+Requesting Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:39] Process P1
+Addresses [40:59] Process P2
+Addresses [60:99] Unused
+Allocator> RL P1
+Releasing Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:39] Unused
+Addresses [40:59] Process P2
+Addresses [60:99] Unused
+Allocator> RQ P1 20 W
+Requesting Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:39] Unused
+Addresses [40:59] Process P2
+Addresses [60:79] Process P1
+Addresses [80:99] Unused
+Allocator> RL P2
+Releasing Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:59] Unused
+Addresses [60:79] Process P1
+Addresses [80:99] Unused
+Allocator> RQ P2 20 B
+Requesting Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:59] Unused
+Addresses [60:79] Process P1
+Addresses [80:99] Process P2
+Allocator> C
+Compacting Memory
+Allocator> STAT
+Printing Stats
+Addresses [0:19] Process P0
+Addresses [20:39] Process P1
+Addresses [40:59] Process P2
+Addresses [60:59] Unused
+Allocator> X
+Exiting...
